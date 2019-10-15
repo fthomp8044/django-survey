@@ -1,0 +1,22 @@
+{% extends 'surveys/base.html' %}
+{% block content %}
+<!-- #create a form for when the user is the superuser -->
+{% if user.is_superuser %}
+<form method='post'>
+  {% csrf_token %}
+  <table>
+    {{form}}
+    <br>
+    {{formset}}
+  </table>
+  <button>Submit</button>
+</form>
+{% else %}
+<!-- #create a prompt that tells them you must be logged in of they will have to logout -->
+<h3>You must be logged in first</h3>
+<a href='{% url "accounts/login/" %}'>Log In</a>
+
+{% endif %}
+
+<a href="{% url 'logout' %}"><span>| Log Out |</span></a>
+{% endblock %}
